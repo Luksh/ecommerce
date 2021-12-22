@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.deletion import CASCADE
 
 # Create your models here.
 
@@ -49,7 +50,7 @@ class Product(models.Model):
     specification = models.TextField(blank = True)
     category = models.ForeignKey(Category, on_delete = models.CASCADE)
     labels = models.CharField(choices = LABELS, max_length = 200, blank = True)
-    brand = models.ForeignKey(Category, on_delete = models.CASCADE)
+    brand = models.ForeignKey(Brand, on_delete = models.CASCADE)
 
     def __str__(self):
         return self.name
