@@ -72,3 +72,24 @@ def signup(request):
 			messages.error(request, 'Password does not match')
 
 	return render(request, 'signup.html')
+
+def contact(request):
+	if request.method == 'POST':
+		name = request.POST['name']
+		email = request.POST['email']
+		subject = request.POST['subject']
+		message = request.POST['message']
+
+
+
+	return render(request, 'contact.html')
+
+				email = EmailMessage(
+					subject,
+					message,
+					'',
+					[email],
+
+				)
+				email.send()
+				

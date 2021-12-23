@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+        <!-- Breadcrumb Start -->
+        <div class="breadcrumb-wrap">
+            <div class="container-fluid">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Products</a></li>
+                    <li class="breadcrumb-item active">Login & Register</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Breadcrumb End -->
+        
+        <!-- Login Start -->
+        <div class="login">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-6">    
+                        <div class="login-form">
+                            <form method = "POST">
+                                {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>First Name</label>
+                                    <input class="form-control" type="text" name="first_name" placeholder="First Name">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Email/Username</label>
+                                    {{form.username}}
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Password</label>
+                                    {{form.password}}
+                                </div>
+                                <div class="col-md-6">
+                                    <label>"custom-control custom-checkout</label>
+                                    <button type="submit" class="btn">Login</button>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>"custom-control custom-checkout</label>
+                                    <button type="submit" class="btn">Login</button>
+                                </div>
+                            </div>
+                </div>
+            </div>
+        </div>
+        <!-- Login End -->
+        
+{% endblock %}
