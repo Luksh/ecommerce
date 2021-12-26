@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models.deletion import CASCADE
 from django.urls import reverse
+from django.conf import settings
 
 # Create your models here.
 
@@ -56,7 +57,7 @@ class Product(models.Model):
 	category = models.ForeignKey(Category, on_delete = models.CASCADE)
 	labels = models.CharField(choices = LABELS, max_length = 200, blank = True)
 	brand = models.ForeignKey(Brand, on_delete = models.CASCADE)
-	slug = models.CharField(max_length = 300, blank=True)
+	slug = models.CharField(max_length = 300, blank = True)
 
 	def __str__(self):
 		return self.name
@@ -72,3 +73,13 @@ class Contact(models.Model):
 
 	def __str__(self):
 		return self.name
+
+class Cart(models.Model):
+	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
+	slug = models.CharField(max_length = 300)
+	items = models.ForeignKey(Product, on_delete = models.CASCADE)
+	quantity = models.IntegerField(default = 1)
+	checkout = models.BooleanField(default = False)
+
+	def __str__(self):
+		return self.user.username

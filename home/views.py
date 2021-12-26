@@ -107,10 +107,22 @@ def contact(request):
 
 from .models import *
 from .serializers import *
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 
 # ViewSets define the view behavior.
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
+from rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
+
+class ProductListView(generics.ListAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ['username', 'email']
+    search_fields = ['name', 'description']
+    ordering_fields = ['name', 'id', 'price']
+    filterset_fields = ['category', 'labels', 'brand', 'color']
