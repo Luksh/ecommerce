@@ -103,6 +103,27 @@ def contact(request):
 
         return render(request, 'contact.html')
 
+class CartView(BaseView):
+    def get(self, request):
+
+        return render (request, 'cart.html', self.views)
+
+def cart(request, slug):
+    if Product.objects.filter(slug = slug):
+        if Cart.objects.filter(slug = slug, user = request.user, checkout = False):
+            quantity = Cart.objects.get(slug = slug, user = request.user, checkout = False).quantity
+            quantity = quantity + 1
+            Cart.objects.filter(slug = slug, user = request.user, checkout = False).update(quantity = quantity)
+            return redirect('/')
+        else:
+            cart_data = Cart.objects.create(
+                user = request.user,
+                slug = slug,
+                items = Product.objects.filter(slug = slug)[0]
+            )
+            cart_data.save()
+            return redirect('/')
+
 #----------------------------API---------------------------
 
 from .models import *

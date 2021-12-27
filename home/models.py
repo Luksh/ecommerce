@@ -65,6 +65,9 @@ class Product(models.Model):
 	def get_product_url(self):
 		return reverse("product", kwargs = {'slug': self.slug})
 
+	def get_cart_url(self):
+		return reverse("add-to-cart", kwargs = {'slug': self.slug})
+
 class Contact(models.Model):
 	name = models.CharField(max_length = 300)
 	email = models.EmailField(max_length = 400)
