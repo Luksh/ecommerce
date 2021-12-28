@@ -105,16 +105,18 @@ def contact(request):
 
 class CartView(BaseView):
     def get(self, request):
-
+        self.views['my_carts'] = Cart.objects.filter(user = request.user, checkout = False)
         return render (request, 'cart.html', self.views)
 
+from django.contrib.auth.decorators import login_required
+@login_required
 def cart(request, slug):
     if Product.objects.filter(slug = slug):
         if Cart.objects.filter(slug = slug, user = request.user, checkout = False):
             quantity = Cart.objects.get(slug = slug, user = request.user, checkout = False).quantity
             quantity = quantity + 1
             Cart.objects.filter(slug = slug, user = request.user, checkout = False).update(quantity = quantity)
-            return redirect('/')
+            return redirect('/my_cart')
         else:
             cart_data = Cart.objects.create(
                 user = request.user,
@@ -122,7 +124,12 @@ def cart(request, slug):
                 items = Product.objects.filter(slug = slug)[0]
             )
             cart_data.save()
-            return redirect('/')
+            return redirect('/my_cart')
+
+def delete_cart(request, slug):
+    if Cart.objects.filter(slug = slug, user = request.user, checkout = False).exists():
+        Cart.objects.filter(slug = slug, user = request.user, checkout = False).delete()
+        return redirect('/my_cart')
 
 #----------------------------API---------------------------
 

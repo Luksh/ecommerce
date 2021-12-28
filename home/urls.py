@@ -8,5 +8,6 @@ urlpatterns = [
     path('search', SearchView.as_view(), name = 'search'),
     path('signup', signup, name = 'signup'),
     path('add-to-cart/<slug>', cart, name = 'add-to-cart'),
+    path('delete-add-to-cart/<slug>', delete_cart, name = 'delete-add-to-cart'),
     path('my_cart', CartView.as_view(), name = 'my_cart'),
 ]

@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-
-       <!-- Main Slider Start -->
+       
+        <!-- Main Slider Start -->
         <div class="header">
             <div class="container-fluid">
                 <div class="row">
@@ -21,7 +21,7 @@
                         <div class="header-slider normal-slider">
                             {% for slider in sliders %}
                             <div class="header-slider-item">
-                                <img src="{{slider.image.url}}" alt="Slider Image" />
+                                <img src="{{slider.image.url}}" alt="Slider Image" / style="height:250px;" "width: 50%;" >
                                 <div class="header-slider-caption">
                                     <p>{{slider.description}}</p>
                                     <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Shop Now</a>
@@ -63,9 +63,10 @@
         <div class="brand">
             <div class="container-fluid">
                 <div class="brand-slider">
-                    {% for brand in brands%}
-                    <div class="brand-item"><img src="{{brand.image.url}}" style="height:50px; width: 50px;" alt=""></div>
+                    {% for brand in brands %}
+                    <div class="brand-item"><img src={{brand.image.url}} alt=""></div>
                     {% endfor %}
+
                 </div>
             </div>
         </div>
@@ -133,62 +134,61 @@
                     {% endif %}
                     {% endfor %}
                     <div class="col-md-3">
-                    {% for ad in ads %}
-                    {% if ad.rank == 4 %}
+                        {% for ad in ads %}
+                        {% if ad.rank == 4 %}
                         <div class="category-item ch-250">
                             <img src="{{ad.image.url}}" />
                             <a class="category-name" href="">
                                 <p>Some text goes here that describes the image</p>
                             </a>
                         </div>
-                    {% endif %}
-                    {% endfor %}
-                    {% for ad in ads %}
-                    {% if ad.rank == 5 %}
+                        {% endif %}
+                        {% endfor %}
+                        {% for ad in ads %}
+                        {% if ad.rank == 5 %}
                         <div class="category-item ch-150">
                             <img src="{{ad.image.url}}" />
                             <a class="category-name" href="">
                                 <p>Some text goes here that describes the image</p>
                             </a>
                         </div>
-                    {% endif %}
-                    {% endfor %}
-                  </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
                     <div class="col-md-3">
-                    {% for ad in ads %}
-                    {% if ad.rank == 6 %}
+                        {% for ad in ads %}
+                        {% if ad.rank == 6 %}
                         <div class="category-item ch-150">
-                            <img src="{{ad.image.url}}" />
+                            <img src="{{ad.image.url}}.jpg" />
                             <a class="category-name" href="">
                                 <p>Some text goes here that describes the image</p>
                             </a>
                         </div>
-                    {% endif %}
-                    {% endfor %}
-                    {% for ad in ads %}
-                    {% if ad.rank == 7 %}
+                        {% endif %}
+                        {% endfor %}
+                        {% for ad in ads %}
+                        {% if ad.rank == 7 %}
                         <div class="category-item ch-250">
                             <img src="{{ad.image.url}}" />
                             <a class="category-name" href="">
                                 <p>Some text goes here that describes the image</p>
                             </a>
                         </div>
-                    {% endif %}
-                    {% endfor %}    
+                        {% endif %}
+                        {% endfor %}
                     </div>
                     {% for ad in ads %}
-                    {% if ad.rank == 8 %}   
+                    {% if ad.rank == 8 %}
                     <div class="col-md-3">
-                    
                         <div class="category-item ch-400">
                             <img src="{{ad.image.url}}" />
                             <a class="category-name" href="">
                                 <p>Some text goes here that describes the image</p>
                             </a>
-                        </div>                     
+                        </div>
                     </div>
                     {% endif %}
-                    {% endfor %} 
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -309,7 +309,6 @@
                                 {% else %}
                                 <h3><span>$</span>{{new.price}}</h3>
                                 {% endif %}
-
                                 <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
                             </div>
                         </div>
