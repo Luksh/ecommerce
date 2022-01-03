@@ -45,9 +45,9 @@
                                             <td>
                                                 {% else %}
                                                 {% endif %}
-                                                <div class="qty">
+                                                <div class="qty"><a href = "{{cart.get_remove_cart_url}}"></a>
                                                     <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                    <input type="text" value="{{cart.quantity}}">
+                                                    <input type="text" value="{{cart.quantity}}"><a href = "{{cart.get_cart_url}}"></a>
                                                     <button class="btn-plus"><i class="fa fa-plus"></i></button>
                                                 </div>
                                             </td>

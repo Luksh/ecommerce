@@ -83,9 +83,13 @@ class Cart(models.Model):
 	items = models.ForeignKey(Product, on_delete = models.CASCADE)
 	quantity = models.IntegerField(default = 1)
 	checkout = models.BooleanField(default = False)
+	total = models.IntegerField(default = 0)
 
 	def __str__(self):
 		return self.user.username
 
 	def get_delete_cart_url(self):
 		return reverse("delete-add-to-cart", kwargs = {'slug': self.slug})
+
+	def get_remove_cart_url(self):
+		return reverse("remove_cart", kwargs = {'slug': self.slug})

@@ -114,14 +114,27 @@ def cart(request, slug):
     if Product.objects.filter(slug = slug):
         if Cart.objects.filter(slug = slug, user = request.user, checkout = False):
             quantity = Cart.objects.get(slug = slug, user = request.user, checkout = False).quantity
+            price = Product.objects.get(slug = slug).price
+            discounted_price = Product.objects.get(slug = slug).discounted_price
             quantity = quantity + 1
-            Cart.objects.filter(slug = slug, user = request.user, checkout = False).update(quantity = quantity)
+            if discounted_price > 0:
+                total = discounted_price * quantity
+            else:
+                total = price * quantity
+            Cart.objects.filter(total = total, slug = slug, user = request.user, checkout = False).update(quantity = quantity)
             return redirect('/my_cart')
         else:
+            price = Product.objects.get(slug = slug).price
+            discounted_price = Product.objects.get(slug = slug).discounted_price
+            if discounted_price > 0:
+                total = discounted_price
+            else:
+                total = price
             cart_data = Cart.objects.create(
                 user = request.user,
                 slug = slug,
-                items = Product.objects.filter(slug = slug)[0]
+                items = Product.objects.filter(slug = slug)[0],
+                total = total
             )
             cart_data.save()
             return redirect('/my_cart')
@@ -129,6 +142,14 @@ def cart(request, slug):
 def delete_cart(request, slug):
     if Cart.objects.filter(slug = slug, user = request.user, checkout = False).exists():
         Cart.objects.filter(slug = slug, user = request.user, checkout = False).delete()
+        return redirect('/my_cart')
+
+def remove_cart(request, slug):
+    if Cart.objects.filter(slug = slug, user = request.user, checkout = False).exists():
+        quantity = Cart.objects.get(slug = slug, user = request.user, checkout = False).quantity
+        if quantity > 1:
+            quantity = quantity - 1
+            Cart.objects.filter(slug = slug, user = request.user, checkout = False).update(quantity = quantity)
         return redirect('/my_cart')
 
 #----------------------------API---------------------------
